@@ -7,7 +7,7 @@ import { PaymentForm } from "@/components/payment/payment-form";
 import { PaymentStatusModal } from "@/components/payment/payment-status-modal";
 import { usePaymentProcessor } from "@/hooks/usePaymentProcessor";
 import type { PaymentFormValues } from "@/types/payment";
-import { initialPaymentValues } from "@/utils/payment-validation";
+import { initialPaymentValues } from "@/validations/payment-validation";
 
 export function Payment() {
   const [previewValues, setPreviewValues] =

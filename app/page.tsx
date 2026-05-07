@@ -1,5 +1,5 @@
-import { PaymentExperience } from "@/components/payment/payment";
+import { Payment } from "@/components/payment/payment";
 
 export default function Home() {
-  return <PaymentExperience />;
+  return <Payment />;
 }

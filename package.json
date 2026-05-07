@@ -9,10 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "axios": "^1.16.0",
+    "formik": "^2.4.9",
     "next": "16.2.5",
     "postcss": "^8.5.14",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "yup": "^1.7.1",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.4",

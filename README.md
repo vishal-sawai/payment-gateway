@@ -13,8 +13,14 @@ The app lets a user enter card details, submit a simulated payment, see processi
 - Yup for payment validation.
 - Axios for the frontend API request.
 - Zustand with persisted localStorage history.
+- No third-party payment SDKs are used.
 
 ## Getting Started
+
+Prerequisites:
+
+- Node.js compatible with the installed Next.js version.
+- npm.
 
 Install dependencies:
 
@@ -48,6 +54,7 @@ npm run lint
 - `npm run dev` starts the Next.js development server.
 - `npm run build` creates a production build.
 - `npm run start` starts the production server after a build.
+- `npm run lint` runs ESLint.
 
 ## Application Routes
 
@@ -66,6 +73,23 @@ npm run lint
 6. The API route randomly returns success, failure, or a delayed timeout response.
 7. The store updates the transaction with the final status, message, reason, and approval code when present.
 8. Failed and timed-out active payments can be retried up to 3 attempts with the same transaction ID.
+
+## Assignment Coverage
+
+- Payment form collects cardholder name, card number, expiry, CVV, amount, and currency.
+- Validation runs in real time and the submit button stays disabled until the form is empty and valid.
+- Card number input formats digits in groups of 4, detects Visa, Mastercard, and Amex, and shows a type badge.
+- Live card preview updates while the user types.
+- Payment lifecycle supports `idle`, `processing`, `success`, `failed`, and `timeout`.
+- The mock gateway is implemented with a Next.js Route Handler at `/api/pay`.
+- The frontend cancels slow gateway requests after 6 seconds with `AbortController`.
+- Failed and timed-out payments can be retried up to 3 total attempts.
+- Retries reuse the original frontend-generated `crypto.randomUUID()` transaction ID.
+- Transaction history persists across refreshes using localStorage and each row links to a detail page.
+- Shared payment state and history live in Zustand.
+- Payment types are defined in TypeScript, including `PaymentPayload`, `Transaction`, `PaymentStatus`, and `CardType`.
+- User-facing error messages are friendly and network/timeout errors are handled separately from API-declined payments.
+- The layout is responsive for mobile and desktop widths.
 
 ## Mock Gateway Behavior
 
@@ -100,6 +124,20 @@ The form validates:
 - Transaction history.
 
 Only transaction history is persisted under the localStorage key `payment-gateway-history`. Full card numbers and CVV values are not stored in history; only card type and last 4 digits are retained.
+
+## Assumptions
+
+- The gateway is intentionally simulated; no real card authorization or payment provider integration is performed.
+- The delayed gateway branch returns after 8 seconds, while the frontend treats it as a timeout after 6 seconds.
+- Retry limits are counted per transaction, with the original transaction ID reused for all attempts.
+- Transaction history stores sanitized card metadata only, not full card numbers or CVV.
+- Currency support is limited to INR and USD because the assignment asks for at least those two currencies.
+
+## Improvements With More Time
+
+- Add otp based verification 
+- Store data in database instead of storing in localstorage 
+- Add filters/search/export actions for transaction history if the history grows large.
 
 ## Project Structure
 
